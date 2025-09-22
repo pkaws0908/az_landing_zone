@@ -1,0 +1,8 @@
+trigger: none
+pool: pkdgpool
+stages:
+- stage: terraformdownload
+  jobs:
+    - job: terraform_download
+      steps:
+      
