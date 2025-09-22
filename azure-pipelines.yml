@@ -39,8 +39,8 @@ stages:
           backendAzureRmStorageAccountName: 'pkdgstorage'
           backendAzureRmContainerName: 'pkdgcontainer'
           backendAzureRmKey: 'dev.terraform.tfstate'
-    - job: terraformplan
-      steps:
+    
+     
       - task: TerraformTask@5
         displayName: terraformplan
         inputs:
