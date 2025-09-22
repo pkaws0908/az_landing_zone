@@ -26,6 +26,19 @@ stages:
           backendAzureRmKey: 'dev.terraform.tfstate'
 - stage: terraformplan
   jobs:
+    - job: terraform_init
+      steps:
+      - task: TerraformTask@5
+        displayName: terraforminit
+        inputs:
+          provider: 'azurerm'
+          command: 'init'
+          workingDirectory: '$(System.DefaultWorkingDirectory)/azinfra/Environment/dev'
+          backendServiceArm: 'pkdgconnection'
+          backendAzureRmResourceGroupName: 'pkdg_dev'
+          backendAzureRmStorageAccountName: 'pkdgstorage'
+          backendAzureRmContainerName: 'pkdgcontainer'
+          backendAzureRmKey: 'dev.terraform.tfstate'
     - job: terraformplan
       steps:
       - task: TerraformTask@5
