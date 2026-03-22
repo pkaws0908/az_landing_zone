@@ -57,14 +57,19 @@ variable "module_bastian" {
 }
 
 variable "module_mssql" {
-  
+
   type = map(any)
 }
 
 variable "module_sqldb" {
-   type = map(any)
+  type = map(any)
 }
 
 variable "module_lb" {
   type = map(any)
+}
+
+variable "module_vmss" {
+  type = map(any)
+
 }

@@ -80,15 +80,15 @@ module "keyvault_user" {
 
 #-------------------------vm-------------
 
-module "vm" {
+# module "vm" {
 
-  var_vm = var.module_vm
+#   var_vm = var.module_vm
 
-  source     = "../../module/azurerm_virtual_machine"
-  depends_on = [module.resource_group, module.keyvault, module.vnet]
+#   source     = "../../module/azurerm_virtual_machine"
+#   depends_on = [module.resource_group, module.keyvault, module.vnet]
 
 
-}
+# }
 
 #-----------------bastian_Host-----------------
 
@@ -103,24 +103,33 @@ module "bastian_host" {
 #------------------sqlserver---------------------------
 
 module "sql_server" {
-var_mssql = var.module_mssql
-source = "../../module/azurerm_sql_server"
+  var_mssql = var.module_mssql
+  source    = "../../module/azurerm_sql_server"
 
-depends_on = [ module.resource_group, module.keyvault ]
-  
+  depends_on = [module.resource_group, module.keyvault]
+
 }
 
 module "sql_db" {
-var_sqldb = var.module_sqldb
-  source = "../../module/azurerm_mssql_database"
-  depends_on = [ module.sql_server ]
-  
+  var_sqldb  = var.module_sqldb
+  source     = "../../module/azurerm_mssql_database"
+  depends_on = [module.sql_server]
+
 }
 
 #---------------LoadBalancer-------------
 
 module "lb" {
-  var_lb = var.module_lb
-  source = "../../module/azurerm_loadbalancer"
-  depends_on = [ module.resource_group, module.pip ]
+  var_lb     = var.module_lb
+  source     = "../../module/azurerm_loadbalancer"
+  depends_on = [module.resource_group, module.pip]
+}
+
+#---------------------------------VMSS-----------------
+
+module "vmss" {
+  var_vmss   = var.module_vmss
+  source     = "../../module/azurerm_vmss"
+  depends_on = [module.resource_group, module.keyvault, module.vnet]
+
 }
